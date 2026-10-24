@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mittivoy IT-поддержка</title>
+<meta name="description" content="Заявки IT-поддержки Mittivoy по филиалам: сколько, о чём, как быстро решаем. Цифры из ClickUp, обновляются каждые 10 минут.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%232F5BFF'/%3E%3Crect x='7' y='7' width='8' height='8' rx='2' fill='%23fff'/%3E%3Crect x='17' y='7' width='8' height='8' rx='2' fill='%23F5A524'/%3E%3Crect x='7' y='17' width='8' height='8' rx='2' fill='%231FB78A'/%3E%3Crect x='17' y='17' width='8' height='8' rx='2' fill='%23fff' opacity='.55'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F3F5FA; --card:#FFFFFF; --ink:#1C2147; --ink-2:#565C80; --ink-3:#8A90AE;
+  --line:#DCE1EE; --blue:#2F5BFF; --amber:#F5A524; --mint:#1FB78A; --coral:#F25C54; --grey:#B7BDD3;
+  --tile-0:#E7EBF5; --shadow:0 1px 0 rgba(28,33,71,.04);
+  --display:"Unbounded",system-ui,sans-serif; --body:"Onest",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#12152B; --card:#1A1E3A; --ink:#E9ECF8; --ink-2:#AEB4D3; --ink-3:#7A80A3;
+  --line:#2A2F55; --blue:#6E8BFF; --amber:#FFB743; --mint:#3FD3A4; --coral:#FF7A70; --grey:#4A5080; --tile-0:#22274A;
+}}
+:root[data-theme="dark"]{
+  --paper:#12152B; --card:#1A1E3A; --ink:#E9ECF8; --ink-2:#AEB4D3; --ink-3:#7A80A3;
+  --line:#2A2F55; --blue:#6E8BFF; --amber:#FFB743; --mint:#3FD3A4; --coral:#FF7A70; --grey:#4A5080; --tile-0:#22274A;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 16px/1.5 var(--body);font-variant-numeric:tabular-nums}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+@media (max-width:600px){.wrap{padding:0 16px}}
+
+/* шапка */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 0 10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font:700 17px/1 var(--display);letter-spacing:-.01em}
+.brand i{display:grid;grid-template-columns:1fr 1fr;gap:3px;width:26px;height:26px}
+.brand i b{border-radius:3px;background:var(--blue)}
+.brand i b:nth-child(2){background:var(--amber)}.brand i b:nth-child(3){background:var(--mint)}.brand i b:nth-child(4){background:var(--grey)}
+.brand span{color:var(--ink-3);font-weight:500}
+.live{display:flex;align-items:center;gap:8px;color:var(--ink-2);font-size:14px}
+.live .dot{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 0 var(--mint);animation:ping 2.4s infinite}
+.live.stale .dot{background:var(--coral);animation:none}
+@keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--mint) 60%,transparent)}70%,100%{box-shadow:0 0 0 8px transparent}}
+.theme{border:1px solid var(--line);background:var(--card);color:var(--ink-2);border-radius:999px;padding:6px 12px;font:500 13px var(--body);cursor:pointer}
+
+/* главный блок */
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:start;padding:28px 0 36px}
+@media (max-width:920px){.hero{grid-template-columns:1fr;gap:28px}}
+.lead{font:700 clamp(30px,4.2vw,50px)/1.08 var(--display);letter-spacing:-.025em;margin:0 0 18px;text-wrap:balance}
+.lead .n{color:var(--blue)}
+.sub{color:var(--ink-2);font-size:18px;max-width:34ch;margin:0 0 22px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;color:var(--ink-2);font-size:14px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* карта филиалов */
+.board{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}
+.board-h{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:12px}
+.board-h h2{font:600 15px var(--body);margin:0}
+.board-h small{color:var(--ink-3);font-size:13px}
+.tiles{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px}
+@media (max-width:520px){.tiles{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.tile{position:relative;aspect-ratio:1/1;border-radius:10px;border:0;background:var(--tile-0);color:var(--ink);
+  display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;padding:7px 8px;cursor:pointer;
+  font:600 12px/1 var(--body);text-align:left;transition:transform .15s}
+.tile .c{font:700 clamp(13px,1.5vw,17px)/1 var(--display);letter-spacing:-.02em}
+.tile.hot{color:#fff}
+.tile:hover,.tile:focus-visible{transform:translateY(-2px)}
+.tile:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.tile[aria-pressed="true"]{outline:3px solid var(--ink);outline-offset:2px}
+.tile .open{position:absolute;top:7px;right:7px;width:8px;height:8px;border-radius:50%;background:var(--coral);
+  box-shadow:0 0 0 2px var(--card)}
+.tile .open::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--coral);opacity:0;animation:ring 1.8s infinite}
+@keyframes ring{0%{transform:scale(.5);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.scale{display:flex;align-items:center;gap:8px;margin-top:12px;color:var(--ink-3);font-size:12px}
+.scale span{flex:1;height:8px;border-radius:4px}
+.info{margin-top:14px;border-top:1px solid var(--line);padding-top:14px;min-height:74px;font-size:15px}
+.info b{font:700 18px var(--display);letter-spacing:-.02em}
+.info .muted{color:var(--ink-3)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border-radius:999px;padding:3px 10px;font-size:13px;background:var(--paper);color:var(--ink-2)}
+
+/* разделы */
+section{padding:34px 0;border-top:1px solid var(--line)}
+.sh{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.sh h2{font:700 clamp(20px,2.4vw,26px)/1.2 var(--display);letter-spacing:-.02em;margin:0}
+.sh p{margin:4px 0 0;color:var(--ink-2);max-width:60ch}
+.tabs{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px;gap:2px}
+.tabs button{border:0;background:none;color:var(--ink-2);font:500 14px var(--body);padding:7px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+@media (max-width:520px){.tabs{display:flex;width:100%}.tabs button{flex:1;padding:7px 6px;font-size:13px}}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.tabs button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+@media (max-width:920px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:520px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{background:var(--card);padding:18px 18px 16px}
+.kpi .v{font:700 clamp(26px,3vw,36px)/1 var(--display);letter-spacing:-.03em}
+.kpi .v small{font-size:.5em;font-weight:500;color:var(--ink-3);letter-spacing:0;margin-left:3px}
+.kpi .l{color:var(--ink-2);font-size:14px;margin-top:8px}
+.kpi .bar{height:4px;border-radius:2px;margin-top:12px;background:var(--paper);overflow:hidden}
+.kpi .bar i{display:block;height:100%;border-radius:2px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:920px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+.panel h3{font:600 16px var(--body);margin:0 0 4px}
+.panel .hint{color:var(--ink-3);font-size:13px;margin:0 0 16px}
+
+/* график по дням */
+.chart{width:100%;height:auto;display:block;overflow:visible}
+.chart text{fill:var(--ink-3);font:500 11px var(--body)}
+.chart .gl{stroke:var(--line)}
+.chart rect{transition:opacity .15s}
+.chart g.day:hover rect{opacity:.75}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--paper);border-radius:10px;padding:8px 10px;font-size:13px;line-height:1.35;
+  opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s;z-index:5;max-width:220px}
+.tip.on{opacity:1;transform:none}
+
+/* полосы */
+.rows{display:grid;gap:10px}
+.row{display:grid;grid-template-columns:minmax(120px,170px) 1fr 44px;align-items:center;gap:12px;font-size:14px}
+.row .t{height:14px;border-radius:7px;background:var(--paper);overflow:hidden}
+.row .t i{display:block;height:100%;border-radius:7px;background:var(--blue);width:0;transition:width .7s cubic-bezier(.2,.8,.2,1)}
+.row .n{text-align:right;font-weight:600}
+.split{display:flex;height:22px;border-radius:11px;overflow:hidden;gap:3px;margin:6px 0 14px}
+.split i{display:block;height:100%;transition:flex-grow .6s cubic-bezier(.2,.8,.2,1)}
+.who{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.who div{font-size:14px;color:var(--ink-2)}
+.who b{display:block;font:700 22px var(--display);color:var(--ink);letter-spacing:-.02em}
+
+/* тепловая карта */
+.heat{display:grid;grid-template-columns:28px repeat(24,minmax(0,1fr));gap:3px;font-size:11px;color:var(--ink-3)}
+.heat .c{aspect-ratio:1/1;border-radius:3px;background:var(--tile-0)}
+.heat .h{text-align:center}
+.heat-wrap{overflow-x:auto}
+.heat-wrap .heat{min-width:560px}
+
+/* агент */
+.agent{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+@media (max-width:920px){.agent{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.agent .v{font:700 30px/1 var(--display);letter-spacing:-.03em}
+.agent .l{color:var(--ink-2);font-size:14px;margin-top:6px}
+
+footer{border-top:1px solid var(--line);padding:24px 0 48px;color:var(--ink-3);font-size:14px}
+.err{background:var(--card);border:1px solid var(--coral);border-radius:14px;padding:16px;margin:24px 0;display:none}
+
+.gate{display:none;max-width:420px;margin:56px auto 80px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px}
+.gate h1{font:700 26px/1.15 var(--display);letter-spacing:-.02em;margin:0 0 8px}
+.gate p{color:var(--ink-2);margin:0 0 18px}
+.gate label{display:block;font-weight:500;font-size:14px;margin-bottom:6px}
+.gate input[type=password]{width:100%;font:500 17px var(--body);padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.gate input[type=password]:focus{outline:2px solid var(--blue);outline-offset:1px}
+.gate .rem{display:flex;align-items:center;gap:8px;margin:14px 0 18px;font-size:14px;color:var(--ink-2)}
+.gate button{width:100%;border:0;border-radius:12px;padding:13px;background:var(--ink);color:var(--paper);font:600 16px var(--body);cursor:pointer}
+.gate button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.gate .bad{color:var(--coral);font-size:14px;min-height:20px;margin:10px 0 0}
+body.locked .gate{display:block}
+body.locked .hero,body.locked section,body.locked footer,body.locked #live{display:none}
+.lock{border:1px solid var(--line);background:var(--card);color:var(--ink-2);border-radius:999px;padding:6px 12px;font:500 13px var(--body);cursor:pointer;display:none}
+body.enc .lock{display:inline-block}
+body.locked .lock{display:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><i aria-hidden="true"><b></b><b></b><b></b><b></b></i>Mittivoy <span>IT-поддержка</span></div>
+    <div style="display:flex;gap:12px;align-items:center">
+      <div class="live" id="live"><span class="dot"></span><span id="updated">загрузка…</span></div>
+      <button class="lock" id="lock" type="button">Выйти</button>
+      <button class="theme" id="theme" type="button">Тёмная тема</button>
+    </div>
+  </header>
+
+  <div class="err" id="err"></div>
+
+  <form class="gate" id="gate" autocomplete="off">
+    <h1>Дашборд закрыт паролем</h1>
+    <p>Цифры зашифрованы. Введите пароль, его знает IT-поддержка.</p>
+    <label for="pw">Пароль</label>
+    <input type="password" id="pw" autocomplete="current-password" required>
+    <label class="rem"><input type="checkbox" id="remember"> Запомнить на этом устройстве</label>
+    <button type="submit" id="unlock">Открыть</button>
+    <p class="bad" id="bad" role="alert"></p>
+  </form>
+
+  <div class="hero">
+    <div>
+      <h1 class="lead" id="lead">Считаем заявки…</h1>
+      <p class="sub" id="sub"></p>
+      <div class="legend">
+        <span><i style="background:var(--blue)"></i>Наша поддержка</span>
+        <span><i style="background:var(--amber)"></i>Retmind (1С)</span>
+        <span><i style="background:var(--coral)"></i>Открыто сейчас</span>
+      </div>
+    </div>
+    <div class="board" aria-labelledby="board-h">
+      <div class="board-h"><h2 id="board-h">Филиалы за 30 дней</h2><small id="board-sum"></small></div>
+      <div class="tiles" id="tiles" role="group" aria-label="Филиалы"></div>
+      <div class="scale" aria-hidden="true">меньше<span id="scale"></span>больше</div>
+      <div class="info" id="info" aria-live="polite"><span class="muted">Нажмите на филиал, чтобы увидеть подробности.</span></div>
+    </div>
+  </div>
+
+  <section aria-labelledby="s-period">
+    <div class="sh">
+      <div><h2 id="s-period">Итоги периода</h2><p id="period-note"></p></div>
+      <div class="tabs" role="tablist" aria-label="Период" id="tabs">
+        <button role="tab" data-p="today">Сегодня</button>
+        <button role="tab" data-p="week">7 дней</button>
+        <button role="tab" data-p="month">30 дней</button>
+        <button role="tab" data-p="all">Всё время</button>
+      </div>
+    </div>
+    <div class="kpis" id="kpis"></div>
+  </section>
+
+  <section aria-labelledby="s-days">
+    <div class="sh"><div><h2 id="s-days">Заявки по дням</h2><p><span id="days-n">Последние 30 дней</span>. Синим — наши, янтарным — переданные Retmind, точкой — сколько закрыли в этот день.</p></div></div>
+    <div class="panel"><svg class="chart" id="days" role="img" aria-label="Заявки по дням за 30 дней"></svg></div>
+  </section>
+
+  <section aria-labelledby="s-who">
+    <div class="sh"><div><h2 id="s-who">Кто решает и о чём пишут</h2></div></div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Кто решает</h3><p class="hint" id="who-hint"></p>
+        <div class="split" id="split" aria-hidden="true"></div>
+        <div class="who" id="who"></div>
+      </div>
+      <div class="panel">
+        <h3>Темы заявок</h3><p class="hint" id="topics-hint">По названиям задач в ClickUp.</p>
+        <div class="rows" id="topics"></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s-speed">
+    <div class="sh"><div><h2 id="s-speed">Скорость и часы пик</h2></div></div>
+    <div class="grid2">
+      <div class="panel">
+        <h3>Сколько времени уходит на решение</h3><p class="hint" id="resolve-hint">Наши заявки, закрытые за 30 дней: от обращения до закрытия.</p>
+        <div class="rows" id="resolve"></div>
+      </div>
+      <div class="panel">
+        <h3>Когда пишут филиалы</h3><p class="hint" id="heat-hint">Дни недели и часы, последние 90 дней. Чем темнее, тем больше заявок.</p>
+        <div class="heat-wrap"><div class="heat" id="heat"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s-agent">
+    <div class="sh"><div><h2 id="s-agent">ИИ-агент в группах филиалов</h2><p id="agent-note"></p></div></div>
+    <div class="panel"><div class="agent" id="agent"></div></div>
+  </section>
+
+  <footer id="foot">Цифры берутся из ClickUp (список MIT-ITSM) и пересчитываются каждые 10 минут.</footer>
+</div>
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script>
+(() => {
+const $ = s => document.querySelector(s);
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const P_LABEL = {today:'сегодня', week:'за 7 дней', month:'за 30 дней', all:'за всё время'};
+const MONTHS = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+let D = null, period = 'today', picked = null;
+try { period = localStorage.getItem('period') || 'today'; } catch (e) {}
+
+function plural(n, a, b, c){ n = Math.abs(n) % 100; const m = n % 10;
+  if (n > 10 && n < 20) return c; if (m > 1 && m < 5) return b; if (m === 1) return a; return c; }
+const zayavok = n => plural(n,'заявка','заявки','заявок');
+function fmtMin(m){ if (m == null) return '—'; if (m < 60) return `${m} мин`;
+  const h = Math.floor(m/60), r = m % 60; if (h < 24) return r ? `${h} ч ${r} мин` : `${h} ч`;
+  const d = Math.floor(h/24), hh = h % 24; return hh ? `${d} д ${hh} ч` : `${d} д`; }
+function minParts(m){ if (m == null) return ['—','']; if (m < 60) return [m,'мин']; if (m < 1440) return [(m/60).toFixed(m < 600 ? 1 : 0).replace('.',','),'ч']; return [(m/1440).toFixed(1).replace('.',','),'дн']; }
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const dayLabel = iso => { const d = new Date(iso + 'T00:00:00'); return `${d.getDate()} ${MONTHS[d.getMonth()]}`; };
+
+function countUp(el, to, suffix=''){
+  if (RM || typeof to !== 'number') { el.textContent = to + suffix; return; }
+  const from = +(el.dataset.v || 0); el.dataset.v = to; const t0 = performance.now(), dur = 700;
+  const step = t => { const k = Math.min(1,(t-t0)/dur), e = 1 - Math.pow(1-k,3);
+    el.textContent = Math.round(from + (to-from)*e) + suffix; if (k < 1) requestAnimationFrame(step); };
+  requestAnimationFrame(step);
+}
+
+// ---------- шапка и главная фраза ----------
+function renderTop(){
+  const u = new Date(D.updated), age = (Date.now() - u) / 60000;
+  const t = u.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Tashkent'});
+  const d = u.toLocaleDateString('ru-RU',{day:'numeric',month:'long',timeZone:'Asia/Tashkent'});
+  $('#updated').textContent = age < 1440 ? `обновлено в ${t}` : `обновлено ${d}`;
+  $('#live').classList.toggle('stale', age > 90);
+  const p = D.periods.today, w = D.periods.week;
+  if (p.created > 0) {
+    $('#lead').innerHTML = `Сегодня <span class="n">${p.created}</span> ${zayavok(p.created)}, решено <span class="n">${p.closed}</span>.`;
+  } else {
+    $('#lead').innerHTML = `Сегодня заявок пока нет. За неделю — <span class="n">${w.created}</span>.`;
+  }
+  const bits = [];
+  if (p.created) bits.push(`Наших ${p.ours}, у Retmind ${p.retmind}.`);
+  bits.push(D.open.ours ? `Открыто сейчас: ${D.open.ours}.` : 'Открытых заявок нет.');
+  if (D.periods.month.median_min != null && D.periods.month.timed >= 20) bits.push(`Обычно решаем за ${fmtMin(D.periods.month.median_min)}.`);
+  $('#sub').textContent = bits.join(' ');
+}
+
+// ---------- карта филиалов ----------
+function mix(a, b, k){ const p = h => [1,3,5].map(i => parseInt(h.slice(i,i+2),16));
+  const x = p(a), y = p(b); return '#' + x.map((v,i) => Math.round(v + (y[i]-v)*k).toString(16).padStart(2,'0')).join(''); }
+function renderTiles(){
+  const box = $('#tiles'), max = Math.max(1, ...D.branches.map(b => b.m30));
+  const c0 = css('--tile-0'), c1 = css('--blue');
+  $('#scale').style.background = `linear-gradient(90deg, ${c0}, ${c1})`;
+  const sum = D.branches.reduce((s,b) => s + b.m30, 0);
+  $('#board-sum').textContent = `${sum} ${zayavok(sum)}`;
+  box.innerHTML = '';
+  D.branches.forEach((b, i) => {
+    const k = b.m30 ? 0.18 + 0.82 * (b.m30 / max) : 0;
+    const el = document.createElement('button');
+    el.type = 'button'; el.className = 'tile' + (k > 0.55 ? ' hot' : '');
+    el.setAttribute('aria-label', `${b.code}${b.name ? ' ' + b.name : ''}: ${b.m30} ${zayavok(b.m30)} за 30 дней${b.open ? ', открыто ' + b.open : ''}`);
+    el.setAttribute('aria-pressed', picked === b.code ? 'true' : 'false');
+    el.innerHTML = `<span>${b.code}</span><span class="c">${b.m30 || '·'}</span>${b.open ? '<span class="open" aria-hidden="true"></span>' : ''}`;
+    const bg = k ? mix(c0, c1, k) : c0;
+    if (RM) el.style.background = bg;
+    else { el.style.background = c0; setTimeout(() => { el.style.transition = 'background .5s, transform .15s'; el.style.background = bg; }, 30 + (i % 8 + Math.floor(i / 8)) * 45); }
+    el.addEventListener('click', () => pick(b.code));
+    box.appendChild(el);
+  });
+}
+function pick(code){
+  picked = picked === code ? null : code;
+  document.querySelectorAll('.tile').forEach((el, i) => el.setAttribute('aria-pressed', D.branches[i].code === picked ? 'true' : 'false'));
+  const b = D.branches.find(x => x.code === picked), info = $('#info');
+  if (!b) { info.innerHTML = '<span class="muted">Нажмите на филиал, чтобы увидеть подробности.</span>'; return; }
+  info.innerHTML = `<b>${b.code}</b> ${b.name ? `<span class="muted">${b.name}</span>` : ''}
+    <div>${b.m30} ${zayavok(b.m30)} за 30 дней: наших ${b.ours30}, у Retmind ${b.retmind30}. Всего ${b.all}.</div>
+    <div class="chips">${b.open ? `<span class="chip" style="color:var(--coral)">открыто: ${b.open}</span>` : '<span class="chip">открытых нет</span>'}${b.top ? `<span class="chip">чаще всего: ${b.top}</span>` : ''}</div>`;
+}
+
+// ---------- итоги периода ----------
+function renderKpis(){
+  document.querySelectorAll('#tabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.p === period ? 'true' : 'false'));
+  const p = D.periods[period];
+  $('#period-note').textContent = period === 'all' && D.first_task
+    ? `С ${dayLabel(D.first_task)} ${D.first_task.slice(0,4)} года — ${D.total} ${zayavok(D.total)} в ClickUp.`
+    : `Все заявки ${P_LABEL[period]}: наши, Retmind и отклонённые.`;
+  const [mv, mu] = minParts(p.median_min);
+  const items = [
+    {v:p.created, l:'Новых заявок', c:'--ink', w:100},
+    {v:p.ours, l:'Наша поддержка', c:'--blue', w:p.created ? 100*p.ours/p.created : 0},
+    {v:p.retmind, l:'Передано Retmind', c:'--amber', w:p.created ? 100*p.retmind/p.created : 0},
+    {v:p.closed, l:'Закрыто', c:'--mint', w:p.created ? Math.min(100, 100*p.closed/p.created) : 0},
+    {v:mv, u:mu, l:p.timed ? `Обычное время решения (по ${p.timed})` : 'Время решения: нет данных', c:'--blue', w:0, raw:true},
+    {v:p.fast_share == null ? '—' : p.fast_share, u:p.fast_share == null ? '' : '%', l:'Решено быстрее часа', c:'--mint', w:p.fast_share || 0},
+  ];
+  const box = $('#kpis');
+  if (!box.children.length) box.innerHTML = items.map(() => `<div class="kpi"><div class="v"><span></span><small></small></div><div class="l"></div><div class="bar"><i></i></div></div>`).join('');
+  [...box.children].forEach((el, i) => {
+    const it = items[i];
+    const s = el.querySelector('.v span');
+    if (typeof it.v === 'number' && !it.raw) countUp(s, it.v); else s.textContent = it.v;
+    el.querySelector('.v small').textContent = it.u || '';
+    el.querySelector('.l').textContent = it.l;
+    const bar = el.querySelector('.bar'); bar.style.visibility = it.w || i === 0 ? 'visible' : 'hidden';
+    const bi = bar.querySelector('i'); bi.style.background = `var(${it.c})`; bi.style.width = it.w + '%';
+  });
+  renderWho(); renderTopics(); renderAgent();
+}
+
+// ---------- по дням ----------
+function renderDays(){
+  const small = innerWidth < 600, svg = $('#days'), W = small ? 400 : 1100, H = small ? 240 : 260, L = 26, B = 26, T = 10;
+  const days = small ? D.daily.slice(-14) : D.daily, n = days.length, max = Math.max(4, ...days.map(d => d.ours + d.retmind + d.other), ...days.map(d => d.closed));
+  const top = Math.ceil(max / 5) * 5, bw = (W - L) / n, y = v => T + (H - T - B) * (1 - v / top);
+  let g = '';
+  for (let i = 0; i <= 5; i++) { const v = top * i / 5; g += `<line class="gl" x1="${L}" x2="${W}" y1="${y(v)}" y2="${y(v)}"/><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end">${v}</text>`; }
+  days.forEach((d, i) => {
+    const x = L + i * bw + bw * 0.16, w = bw * 0.68;
+    const parts = [['ours','--blue'],['retmind','--amber'],['other','--grey']];
+    let acc = 0, rects = '';
+    parts.forEach(([k, c]) => { const v = d[k]; if (!v) return;
+      rects += `<rect x="${x}" y="${y(acc + v)}" width="${w}" height="${y(acc) - y(acc + v)}" rx="${Math.min(4, w / 3)}" fill="var(${c})" style="transform-origin:${x}px ${H - B}px;transform:scaleY(${RM ? 1 : 0});transition:transform .5s cubic-bezier(.2,.8,.2,1) ${i * 18}ms"/>`; acc += v; });
+    const dot = d.closed ? `<circle cx="${x + w / 2}" cy="${y(d.closed)}" r="3.2" fill="var(--mint)" stroke="var(--card)" stroke-width="1.5"/>` : '';
+    const dt = new Date(d.d + 'T00:00:00'), wd = dt.getDay();
+    const lbl = ((small ? i % 2 === 1 : i % 3 === 2) || i === n - 1) ? `<text x="${x + w / 2}" y="${H - 6}" text-anchor="middle">${dt.getDate()}.${String(dt.getMonth() + 1).padStart(2, '0')}</text>` : '';
+    g += `<g class="day" data-i="${i}"><rect x="${L + i * bw}" y="${T}" width="${bw}" height="${H - T - B}" fill="transparent"/>${wd === 0 ? `<rect x="${L + i * bw}" y="${T}" width="${bw}" height="${H - T - B}" fill="var(--paper)"/>` : ''}${rects}${dot}${lbl}</g>`;
+  });
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  $('#days-n').textContent = small ? 'Последние 14 дней' : 'Последние 30 дней';
+  svg.innerHTML = g;
+  if (!RM) requestAnimationFrame(() => requestAnimationFrame(() => svg.querySelectorAll('rect[style]').forEach(r => r.style.transform = 'scaleY(1)')));
+  const tip = $('#tip');
+  svg.querySelectorAll('g.day').forEach(el => {
+    el.addEventListener('mousemove', e => { const d = days[+el.dataset.i];
+      tip.innerHTML = `<b>${dayLabel(d.d)}</b><br>наших: ${d.ours}<br>Retmind: ${d.retmind}${d.other ? `<br>отклонено: ${d.other}` : ''}<br>закрыто: ${d.closed}`;
+      tip.style.left = Math.min(e.clientX + 14, innerWidth - 230) + 'px'; tip.style.top = (e.clientY + 14) + 'px'; tip.classList.add('on'); });
+    el.addEventListener('mouseleave', () => tip.classList.remove('on'));
+  });
+}
+
+// ---------- кто решает ----------
+function renderWho(){
+  const p = D.periods[period], tot = p.ours + p.retmind + p.rejected;
+  $('#who-hint').textContent = `Все заявки ${P_LABEL[period]}.`;
+  const sp = $('#split');
+  sp.innerHTML = tot ? [['ours','--blue'],['retmind','--amber'],['rejected','--grey']].filter(([k]) => p[k]).map(([k, c]) => `<i style="background:var(${c});flex-grow:${p[k]}"></i>`).join('') : `<i style="background:var(--tile-0);flex-grow:1"></i>`;
+  const pc = v => tot ? Math.round(100 * v / tot) + '%' : '—';
+  $('#who').innerHTML = `<div><b style="color:var(--blue)">${pc(p.ours)}</b>Наша поддержка, ${p.ours}</div>
+    <div><b style="color:var(--amber)">${pc(p.retmind)}</b>Retmind (1С), ${p.retmind}</div>
+    <div><b>${pc(p.rejected)}</b>Отклонено или не туда, ${p.rejected}</div>`;
+}
+
+// ---------- темы ----------
+function renderTopics(){
+  const list = period === 'all' ? D.topics.all : D.topics.month;
+  $('#topics-hint').textContent = period === 'all' ? 'За всё время, по названиям задач в ClickUp.' : 'За 30 дней, по названиям задач в ClickUp.';
+  const max = Math.max(1, ...list.map(t => t.n)), box = $('#topics');
+  box.innerHTML = list.slice(0, 9).map(t => `<div class="row"><span>${t.name}</span><span class="t"><i data-w="${100 * t.n / max}"></i></span><span class="n">${t.n}</span></div>`).join('') || '<p class="hint">Заявок пока нет.</p>';
+  requestAnimationFrame(() => box.querySelectorAll('i').forEach(i => i.style.width = i.dataset.w + '%'));
+}
+
+// ---------- скорость ----------
+function renderResolve(){
+  const tn = D.resolve.reduce((a, r) => a + r.n, 0);
+  $('#resolve-hint').textContent = `Наши заявки за 30 дней, которые вели в ClickUp во время работы (${tn}): от обращения до закрытия. Заведённые задним числом не учитываются.`;
+  const max = Math.max(1, ...D.resolve.map(r => r.n)), box = $('#resolve');
+  const col = ['--mint','--mint','--blue','--blue','--amber','--coral'];
+  box.innerHTML = D.resolve.map((r, i) => `<div class="row"><span>${r.label}</span><span class="t"><i style="background:var(${col[i]})" data-w="${100 * r.n / max}"></i></span><span class="n">${r.n}</span></div>`).join('');
+  requestAnimationFrame(() => box.querySelectorAll('i').forEach(i => i.style.width = i.dataset.w + '%'));
+}
+function renderHeat(){
+  $('#heat-hint').textContent = `Последние 90 дней, только заявки, где указано точное время обращения (${D.heat_n || 0}). Чем темнее, тем больше заявок.`;
+  const days = ['Пн','Вт','Ср','Чт','Пт','Сб','Вс'], max = Math.max(1, ...D.heat.flat());
+  const c0 = css('--tile-0'), c1 = css('--blue');
+  let h = '<span></span>' + Array.from({length:24}, (_, i) => `<span class="h">${i % 3 === 0 ? i : ''}</span>`).join('');
+  D.heat.forEach((row, d) => {
+    h += `<span>${days[d]}</span>` + row.map((v, hr) => `<span class="c" title="${days[d]}, ${hr}:00–${hr + 1}:00 — ${v} ${zayavok(v)}" style="background:${v ? mix(c0, c1, 0.15 + 0.85 * v / max) : c0}"></span>`).join('');
+  });
+  $('#heat').innerHTML = h;
+}
+
+// ---------- агент ----------
+function renderAgent(){
+  const A = D.agent;
+  if (!A) { $('#agent').innerHTML = '<p class="hint">Нет данных агента.</p>'; return; }
+  const a = A[period] || A.all;
+  $('#agent-note').textContent = `Агент читает группы филиалов, уточняет проблему, просит фото и сам заводит задачи в ClickUp. Работает с ${A.since || '—'}. Цифры ${P_LABEL[period]}.`;
+  const rs = a.reply_sec == null ? '—' : a.reply_sec < 60 ? `${a.reply_sec} сек` : `${Math.round(a.reply_sec / 60)} мин`;
+  const items = [
+    [a.handled, 'обращений разобрал'],
+    [rs, 'обычно отвечает в группе через'],
+    [a.to_mardon, 'передал Мардону'],
+    [a.to_retmind, 'отдал Retmind (1С)'],
+  ];
+  if (a.self_solved) items.push([a.self_solved, 'сотрудники решили сами']);
+  $('#agent').innerHTML = items.map(([v, l]) => `<div><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+}
+
+function renderAll(){
+  renderTop(); renderTiles(); renderKpis(); renderDays(); renderResolve(); renderHeat();
+  if (picked) { const p = picked; picked = null; pick(p); }
+  $('#foot').textContent = `Цифры берутся из ClickUp (список MIT-ITSM) и пересчитываются каждые 10 минут. Всего задач: ${D.total}${D.first_task ? `, первая — ${dayLabel(D.first_task)} ${D.first_task.slice(0,4)}` : ''}. Имена сотрудников и текст заявок здесь не публикуются, на GitHub цифры лежат в зашифрованном виде.`;
+}
+
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function decrypt(enc, pw){
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveKey']);
+  const key = await crypto.subtle.deriveKey({name:'PBKDF2', salt:b64(enc.salt), iterations:enc.iter, hash:'SHA-256'},
+    base, {name:'AES-GCM', length:256}, false, ['decrypt']);
+  const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv:b64(enc.iv)}, key, b64(enc.ct));
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+let PW = null;
+try { PW = sessionStorage.getItem('pw') || localStorage.getItem('pw'); } catch (e) {}
+let pendingEnc = null;
+function lockScreen(msg){
+  document.body.classList.add('locked');
+  $('#bad').textContent = msg || '';
+  setTimeout(() => $('#pw').focus(), 50);
+}
+$('#gate').addEventListener('submit', async e => {
+  e.preventDefault();
+  const pw = $('#pw').value; if (!pw || !pendingEnc) return;
+  $('#unlock').textContent = 'Проверяю…'; $('#unlock').disabled = true;
+  try {
+    const data = await decrypt(pendingEnc, pw);
+    PW = pw;
+    try { sessionStorage.setItem('pw', pw); if ($('#remember').checked) localStorage.setItem('pw', pw); } catch (e2) {}
+    $('#pw').value = ''; document.body.classList.remove('locked');
+    D = null; apply(data, true);
+  } catch (err) {
+    $('#bad').textContent = 'Неверный пароль. Проверьте раскладку и попробуйте ещё раз.';
+  }
+  $('#unlock').textContent = 'Открыть'; $('#unlock').disabled = false;
+});
+$('#lock').addEventListener('click', () => {
+  PW = null; try { sessionStorage.removeItem('pw'); localStorage.removeItem('pw'); } catch (e) {}
+  D = null; lockScreen();
+});
+function apply(data, first){
+  if (!first && D && data.updated === D.updated) return;
+  const wasEmpty = !D; D = data; $('#err').style.display = 'none';
+  if (first || wasEmpty) renderAll(); else { renderTop(); renderTiles(); renderKpis(); renderDays(); renderResolve(); renderHeat(); }
+}
+
+async function load(first){
+  try {
+    const r = await fetch('stats.json?t=' + Date.now(), {cache:'no-store'});
+    if (r.status === 404) throw new Error('Цифр пока нет: агент ещё не выложил их. Загляните через 10 минут.');
+    if (!r.ok) throw new Error(r.status === 503 ? 'Агент ещё считает цифры — обновите страницу через минуту.' : `stats.json не загрузился (${r.status}).`);
+    let data = await r.json();
+    if (data.enc) {
+      document.body.classList.add('enc');
+      pendingEnc = data;
+      if (!PW) { if (!document.body.classList.contains('locked')) lockScreen(); return; }
+      try { data = await decrypt(data, PW); }
+      catch (e) { PW = null; try { sessionStorage.removeItem('pw'); localStorage.removeItem('pw'); } catch (e2) {}
+        lockScreen('Пароль сменился — введите новый.'); return; }
+    }
+    apply(data, first);
+    return;
+  } catch (e) {
+    const el = $('#err'); el.textContent = e.message || 'Не удалось загрузить данные.'; el.style.display = 'block';
+  }
+}
+
+document.querySelectorAll('#tabs button').forEach(b => b.addEventListener('click', () => {
+  period = b.dataset.p; try { localStorage.setItem('period', period); } catch (e) {}
+  if (D) renderKpis();
+}));
+const themeBtn = $('#theme');
+function setTheme(t){ if (t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+  const dark = t ? t === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  themeBtn.textContent = dark ? 'Светлая тема' : 'Тёмная тема'; if (D) { renderTiles(); renderHeat(); } }
+let saved = null; try { saved = localStorage.getItem('theme'); } catch (e) {}
+setTheme(saved);
+themeBtn.addEventListener('click', () => { const dark = document.documentElement.dataset.theme ? document.documentElement.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  const t = dark ? 'light' : 'dark'; try { localStorage.setItem('theme', t); } catch (e) {} setTheme(t); });
+
+let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (D) renderDays(); }, 200); });
+load(true);
+setInterval(() => load(false), 120000);
+})();
+</script>
+</body>
+</html>
